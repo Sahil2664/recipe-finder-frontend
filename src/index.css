@@ -1,0 +1,13 @@
+/* small reset + sensible defaults */
+* { box-sizing: border-box; }
+html,body,#root { height:100%; }
+body {
+  margin:0;
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg, #fff9f7 0%, #ffeef0 100%);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  color: #222;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; }
