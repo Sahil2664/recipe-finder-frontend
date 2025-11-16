@@ -1,151 +1,336 @@
-/* Root */
-.app {
-  text-align: center;
-  padding: 20px;
-  background: #f8f8f8;
-  min-height: 100vh;
-  transition: 0.3s;
+/* Root theme defaults */
+:root {
+  --bg: #f7f6fb;
+  --text: #3b2f56;
+  --subtext: #6b6b7a;
+  --card-bg: rgba(255,255,255,0.9);
+  --card-hover-shadow: rgba(59,47,86,0.12);
+  --primary-grad: linear-gradient(90deg,#ff6b6b,#ff8fa3);
+  --soft-grad: linear-gradient(90deg,#ffd6e0,#ffd6a8);
+  --border-light: rgba(0,0,0,0.08);
 }
 
-/* Header */
-.header {
+body.dark {
+  --bg: #1c1b22;
+  --text: #f4eaff;
+  --subtext: #c9c3d9;
+  --card-bg: #2a2933;
+  --card-hover-shadow: rgba(0,0,0,0.45);
+  --primary-grad: linear-gradient(90deg,#8758ff,#c678ff);
+  --soft-grad: linear-gradient(90deg,#4b3f72,#6b4fa3);
+  --border-light: rgba(255,255,255,0.12);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ---------- Topbar ---------- */
+.topbar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-h1 {
+.topbar h1 {
   margin: 0;
+  font-size: 1.6rem;
+  letter-spacing: 0.2px;
+  color: var(--text);
 }
 
-/* Search Box */
-.search-box {
+.topbar .actions {
   display: flex;
-  justify-content: center;
   gap: 10px;
-  margin: 20px 0;
+  align-items: center;
 }
 
-.search-box input {
-  width: 250px;
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: 1px solid #aaa;
-  font-size: 16px;
-}
-
-.search-btn {
-  padding: 8px 14px;
-  background: #007bff;
-  border: none;
-  color: white;
-  font-size: 16px;
-  border-radius: 6px;
+/* Buttons */
+button {
   cursor: pointer;
-  transition: 0.3s;
+  border: none;
+  outline: none;
+  transition: 0.2s ease;
 }
 
-.search-btn:hover {
-  background: #0056b3;
+button.ghost {
+  background: transparent;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border-light);
+  color: var(--text);
 }
 
-/* Recipe Cards Container */
-.recipes {
+.topbar button:not(.ghost) {
+  background: var(--primary-grad);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+}
+
+/* ---------- Search Bar ---------- */
+.search-bar {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding: 0 24px;
+  margin-top: 6px;
+}
+
+.search-bar input {
+  width: min(680px, 70%);
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
+  background: var(--card-bg);
+  color: var(--text);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.search-bar button {
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--text);
+  color: #fff;
+}
+
+/* ---------- Category Pills ---------- */
+.category-row {
+  display: flex;
+  gap: 10px;
+  padding: 12px 24px;
+  overflow-x: auto;
+  margin-top: 18px;
+}
+
+.pill {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  min-width: fit-content;
+  color: var(--text);
+}
+
+.pill.active {
+  background: var(--soft-grad);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* ---------- Info Message ---------- */
+.msg {
+  text-align: center;
+  margin-top: 12px;
+  color: var(--subtext);
+}
+
+/* Layout */
+main {
+  max-width: 1100px;
+  margin: 8px auto 40px;
+  padding: 0 12px;
+}
+
+/* ---------- Recipe Grid ---------- */
+.recipe-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  padding: 20px;
+  gap: 18px;
+  margin-top: 18px;
 }
 
-/* Recipe Card */
-.recipe-card {
-  background: white;
-  padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  transition: 0.3s;
-  text-align: left;
+/* ---------- Recipe Card ---------- */
+.card {
+  background: var(--card-bg);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  transition: transform .18s ease, box-shadow .18s ease;
 }
 
-.recipe-card:hover {
-  transform: translateY(-5px);
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px var(--card-hover-shadow);
 }
 
-.recipe-card img {
+.card-top img {
   width: 100%;
-  height: 150px;
+  height: 160px;
   object-fit: cover;
+  display: block;
+}
+
+/* Card Body */
+.card-body {
+  padding: 12px 14px;
+}
+
+.card-body h3 {
+  margin: 0 0 6px;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
+.muted {
+  color: var(--subtext);
+  font-size: 0.85rem;
+}
+
+.card-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Buttons inside cards */
+.btn {
+  padding: 8px 10px;
   border-radius: 10px;
-}
-
-.recipe-card h3 {
-  margin-top: 10px;
-}
-
-.view-btn {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 6px 12px;
-  background: #28a745;
-  color: white;
-  text-decoration: none;
-  border-radius: 6px;
-}
-
-.view-btn:hover {
-  background: #1e7e34;
-}
-
-/* 🌙 DARK MODE */
-.app.dark {
-  background: #121212;
-  color: #ffffff;
-}
-
-.app.dark .recipe-card {
-  background: #1e1e1e;
-  border: 1px solid #333;
-}
-
-.app.dark input {
-  background: #222;
-  color: #fff;
-  border: 1px solid #555;
-}
-
-.app.dark .search-btn {
-  background: #444;
-}
-
-.app.dark .search-btn:hover {
-  background: #666;
-}
-
-.app.dark .view-btn {
-  background: #00994d;
-}
-
-.app.dark .view-btn:hover {
-  background: #00cc66;
-}
-
-/* Dark mode toggle button */
-.dark-btn {
-  background: #000;
-  color: #fff;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
+  background: var(--soft-grad);
   border: none;
-  transition: 0.3s;
+  color: #333;
 }
 
-.dark-btn:hover {
-  opacity: 0.8;
+.fav {
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid var(--border-light);
+  color: var(--text);
 }
 
-.app.dark .dark-btn {
-  background: #fff;
-  color: #000;
+.fav.active {
+  background: var(--primary-grad);
+  color: white;
+  border: none;
+}
+
+/* ---------- Skeleton Loading ---------- */
+.card-skel {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 10px;
+  height: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.img-skel,
+.txt-skel {
+  background: linear-gradient(90deg,#eee,#f5f5f5,#eee);
+  border-radius: 8px;
+  animation: skel 1.2s infinite;
+}
+
+.img-skel { height: 140px; }
+.txt-skel { height: 16px; width: 60%; }
+
+@keyframes skel {
+  0% { background-position:-200px 0; }
+  100% { background-position:200px 0; }
+}
+
+/* Empty State */
+.empty {
+  text-align: center;
+  margin-top: 40px;
+  color: var(--subtext);
+}
+
+/* ---------- Modal ---------- */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 60;
+}
+
+.modal {
+  width: min(920px, 95%);
+  max-height: 90vh;
+  overflow: auto;
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 14px;
+  position: relative;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+  color: var(--text);
+}
+
+.modal-close {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  background: var(--card-bg);
+  border: none;
+  font-size: 18px;
+  padding: 6px 8px;
+  cursor: pointer;
+}
+
+.modal-main img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.modal-main {
+  padding: 8px 6px;
+}
+
+.modal-main h2 {
+  margin: 8px 0 4px;
+}
+
+.ings {
+  columns: 2;
+  margin: 6px 0 10px;
+  padding-left: 14px;
+}
+
+.instructions {
+  white-space: pre-wrap;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 20px 6px;
+  color: var(--subtext);
+  border-top: 1px solid var(--border-light);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 700px) {
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .search-bar {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ings {
+    columns: 1;
+  }
 }
